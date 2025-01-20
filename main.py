@@ -3,7 +3,9 @@ from enum import Enum
 from constants import items;
 from Enums import ItemEnum
 from typing import Optional
-app =  FastAPI()
+from bodies import ItemBody
+app =  FastAPI(title="Fast API BOOTCAMP")
+
 
 
 @app.get("/")
@@ -61,3 +63,20 @@ async def get_user_items(user_id: int , item_id : int, q : str | None = None):
 
     return result
 
+# Body request 
+
+@app.post("/items/create")
+async def create_item(item: ItemBody): 
+    items.append(item); 
+
+    return items; 
+
+@app.put("/items/{id}/update")
+async def update_items(id: int , item : ItemBody, q: Optional[ItemEnum] = None):
+    
+    element = items[id]
+    for (key, value) in item:
+        element[key]=value
+    if q : 
+        return element[q]; 
+    return element 
