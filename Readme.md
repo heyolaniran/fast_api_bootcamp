@@ -32,11 +32,19 @@ FAST API BOOTCAMP to masterize API development with Python
     ```env
     ```
 
-5. **Run the FastAPI server:**
+5. **Run the FastAPI server: Through Uvicorn**
     ```bash
     uvicorn main:app --reload
     ```
-
+6. **Run the FastAPI server: Through Dockerfile**
+    ```bash
+    docker build -t fast_api_bootcamp
+    docker run -p 8000:8000 fast_api_bootcamp
+    ```
+7. **Run the FastAPI server: Through Docker Compose**
+    ```bash
+    docker compose watch 
+    ```
 ### Usage
 
 - Access the API documentation at `http://localhost:8000/docs`

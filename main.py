@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from enum import Enum
 from constants import items;
 from Enums import ItemEnum
@@ -80,3 +80,14 @@ async def update_items(id: int , item : ItemBody, q: Optional[ItemEnum] = None):
     if q : 
         return element[q]; 
     return element 
+
+# Query Params and String validation 
+
+@app.get("/validations")
+async def query_validation(q: Optional[str] = Query(None, min_length=2 ,max_length=8) ): 
+    result = { "items": items }
+
+    if q: 
+        result.update({ "q" : q })
+    
+    return result
