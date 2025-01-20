@@ -4,7 +4,7 @@ from constants import items;
 from Enums import ItemEnum
 from typing import Optional
 from bodies import ItemBody
-from fastapi import Query
+from fastapi import Query, Path
 
 @app.get("/")
 async def welcome():
@@ -90,3 +90,11 @@ async def query_validation(q: Optional[list[str]] = Query(["foo", "bar"], descri
     
     return result
 
+# Query params and numeric validation 
+
+@app.get("/query_validations/{item_id}")
+async def numeric_validation(item_id : int = Path(... , ge=0, lt=len(items)) , q :Optional[str] = Query(None)): 
+    element = items[item_id]; 
+    if q : 
+        element.update({ "q" : q  })
+    return element
