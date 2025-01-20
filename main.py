@@ -84,10 +84,11 @@ async def update_items(id: int , item : ItemBody, q: Optional[ItemEnum] = None):
 # Query Params and String validation 
 
 @app.get("/validations")
-async def query_validation(q: Optional[str] = Query(None, min_length=2 ,max_length=8) ): 
+async def query_validation(q: Optional[list[str]] = Query(["foo", "bar"], description="Fields to fetch", alias="field") ): 
     result = { "items": items }
 
     if q: 
         result.update({ "q" : q })
     
     return result
+
