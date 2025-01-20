@@ -3,8 +3,8 @@ from enum import Enum
 from constants import items;
 from Enums import ItemEnum
 from typing import Optional
-from bodies import ItemBody
-from fastapi import Query, Path
+from bodies import ItemBody, Article, User
+from fastapi import Query, Path, Body
 
 @app.get("/")
 async def welcome():
@@ -98,3 +98,17 @@ async def numeric_validation(item_id : int = Path(... , ge=0, lt=len(items)) , q
     if q : 
         element.update({ "q" : q  })
     return element
+
+
+# Part 7 : Multiple Params 
+
+@app.put("/articles/{id}")
+async def update_article(*, id: int = Path(..., ge=0, le=10), q: Optional[str] =  None , article : Article = Body(... , embed=True) ): 
+    result = { "article id": id }
+
+    if q : 
+        result.update({ "q": q})
+    
+    if article : 
+        result.update({ "article": article })
+    return result ; 
