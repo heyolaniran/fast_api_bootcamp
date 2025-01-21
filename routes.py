@@ -112,3 +112,10 @@ async def update_article(*, id: int = Path(..., ge=0, le=10), q: Optional[str] =
     if article : 
         result.update({ "article": article })
     return result ; 
+# Part 8 :  Body fields
+
+@app.put("/update_article/{article_id}") 
+async def update_article_routes(article_id: int , article : Article = Body(...) ):
+    result = { "id": article_id , "article": article}
+
+    return result; 
